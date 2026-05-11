@@ -8,15 +8,31 @@
 ## [未发布]
 
 ### 新增
-- 完善项目文档和构建系统
-- 添加自动化发布脚本
-- 添加Git钩子自动更新CHANGELOG.md
+- 无
 
 ### 变更
 - 无
 
 ### 修复
 - 无
+
+## [0.1.2] - 2026-05-11
+
+### 新增
+- 添加版本发布指南文档（docs/发布指南.md）
+- 详细说明自动化和手动发布流程
+- 包含GitHub Token配置说明
+- 包含版本号规范和变更日志规范
+
+## [0.1.1] - 2026-05-11
+
+### 新增
+- 添加scripts/create-release.sh脚本用于创建GitHub Release
+- 添加scripts/release.sh脚本用于自动化版本发布流程
+- 添加prepare-commit-msg Git钩子自动更新CHANGELOG.md
+
+### 变更
+- 更新CHANGELOG.md添加v0.1.0版本信息
 
 ## [0.1.0] - 2026-05-11
 
@@ -34,6 +50,7 @@
 - 单元测试框架
 - Makefile构建脚本
 - dmg打包支持
+- .gitignore配置
 
 ### 技术栈
 - Swift 5.0+
