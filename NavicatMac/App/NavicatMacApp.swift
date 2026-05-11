@@ -5,12 +5,12 @@ struct NavicatMacApp: App {
     @StateObject private var connectionManager = ConnectionManager()
     
     var body: some Scene {
-        WindowGroup("NavicatMac") {
-            MainView()
+        WindowGroup {
+            ContentView()
                 .environmentObject(connectionManager)
         }
         .windowStyle(.titleBar)
-        .windowToolbarStyle(.unified(showsTitle: true))
+        .windowToolbarStyle(.unified(showsTitle: false))
         .commands {
             // 菜单栏命令
             CommandGroup(replacing: .newItem) {
@@ -37,5 +37,22 @@ struct NavicatMacApp: App {
                 .keyboardShortcut(.return, modifiers: [.command, .shift])
             }
         }
+    }
+}
+
+// MARK: - 内容视图
+struct ContentView: View {
+    @EnvironmentObject var connectionManager: ConnectionManager
+    
+    var body: some View {
+        MainView()
+            .onAppear {
+                // 设置窗口标题
+                DispatchQueue.main.async {
+                    NSApplication.shared.windows.forEach { window in
+                        window.title = "NavicatMac"
+                    }
+                }
+            }
     }
 }

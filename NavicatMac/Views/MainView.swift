@@ -33,6 +33,27 @@ enum Tab: Hashable, Identifiable {
     }
 }
 
+// MARK: - 窗口标题设置器
+struct WindowTitleModifier: ViewModifier {
+    let title: String
+    
+    func body(content: Content) -> some View {
+        content.onAppear {
+            DispatchQueue.main.async {
+                NSApplication.shared.windows.forEach { window in
+                    window.title = title
+                }
+            }
+        }
+    }
+}
+
+extension View {
+    func windowTitle(_ title: String) -> some View {
+        modifier(WindowTitleModifier(title: title))
+    }
+}
+
 // MARK: - 主视图
 struct MainView: View {
     @EnvironmentObject var connectionManager: ConnectionManager
@@ -59,6 +80,7 @@ struct MainView: View {
         }
         .frame(minWidth: 1200, minHeight: 800)
         .background(Color(.controlBackgroundColor))
+        .windowTitle("NavicatMac")
     }
     
     // MARK: - 工具栏
