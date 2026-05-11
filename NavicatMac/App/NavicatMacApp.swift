@@ -8,10 +8,9 @@ struct NavicatMacApp: App {
         WindowGroup {
             MainView()
                 .environmentObject(connectionManager)
-                .frame(minWidth: 1200, minHeight: 800)
         }
-        .windowStyle(.titleBar)
-        .windowToolbarStyle(.unified)
+        .windowStyle(.hiddenTitleBar)
+        .windowToolbarStyle(.unified(showsTitle: false))
         .commands {
             // 菜单栏命令
             CommandGroup(replacing: .newItem) {
