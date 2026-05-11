@@ -38,7 +38,7 @@ struct MainView: View {
     @EnvironmentObject var connectionManager: ConnectionManager
     @State private var selectedTab: Tab = .query(UUID())
     @State private var columnVisibility = NavigationSplitViewVisibility.all
-    @State private var sidebarWidth: CGFloat = 250
+    @State private var sidebarWidth: CGFloat = 220
     
     var body: some View {
         VStack(spacing: 0) {
@@ -66,33 +66,57 @@ struct MainView: View {
     private var toolbarView: some View {
         HStack(spacing: 0) {
             // 左侧功能按钮组
-            HStack(spacing: 2) {
-                ToolbarButton(icon: "plus.circle", title: "连接", isActive: false) {
+            HStack(spacing: 1) {
+                ToolbarButton(icon: "plus.circle", title: "连接") {
                     connectionManager.showNewConnectionDialog = true
                 }
                 
-                ToolbarButton(icon: "doc.text", title: "查询", isActive: true) {
+                ToolbarButton(icon: "doc.text", title: "新建查询") {
                     connectionManager.createNewQuery()
                 }
                 
-                ToolbarButton(icon: "tablecells", title: "表", isActive: false) {
+                ToolbarButton(icon: "tablecells", title: "表") {
                     // 切换到表视图
                 }
                 
-                ToolbarButton(icon: "eye", title: "视图", isActive: false) {
+                ToolbarButton(icon: "eye", title: "视图") {
                     // 切换到视图
                 }
                 
-                ToolbarButton(icon: "function", title: "函数", isActive: false) {
+                ToolbarButton(icon: "function", title: "函数") {
                     // 切换到函数
                 }
                 
-                ToolbarButton(icon: "person", title: "用户", isActive: false) {
+                ToolbarButton(icon: "person", title: "用户") {
                     // 切换到用户
                 }
                 
-                ToolbarButton(icon: "ellipsis.circle", title: "其它", isActive: false) {
+                ToolbarButton(icon: "ellipsis.circle", title: "其它") {
                     // 其它功能
+                }
+                
+                Divider()
+                    .frame(height: 20)
+                    .padding(.horizontal, 4)
+                
+                ToolbarButton(icon: "magnifyingglass", title: "查询") {
+                    // 查询功能
+                }
+                
+                ToolbarButton(icon: "arrow.clockwise", title: "备份") {
+                    // 备份功能
+                }
+                
+                ToolbarButton(icon: "play.circle", title: "自动运行") {
+                    // 自动运行
+                }
+                
+                ToolbarButton(icon: "cube", title: "模型") {
+                    // 数据模型
+                }
+                
+                ToolbarButton(icon: "chart.bar", title: "BI") {
+                    // BI分析
                 }
             }
             .padding(.horizontal, 8)
@@ -100,52 +124,40 @@ struct MainView: View {
             Spacer()
             
             // 右侧操作按钮组
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 // 执行按钮
                 Button(action: {
                     connectionManager.executeCurrentQuery()
                 }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.green)
-                        Text("执行")
-                            .font(.system(size: 12))
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(Color.green.opacity(0.1))
-                    .cornerRadius(6)
+                    Image(systemName: "play.fill")
+                        .font(.system(size: 12))
+                        .foregroundColor(.green)
                 }
                 .buttonStyle(.plain)
                 .disabled(!connectionManager.canExecuteQuery)
+                .help("执行查询")
                 
                 // 停止按钮
                 Button(action: {
                     connectionManager.stopCurrentQuery()
                 }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "stop.fill")
-                            .foregroundColor(.red)
-                        Text("停止")
-                            .font(.system(size: 12))
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(Color.red.opacity(0.1))
-                    .cornerRadius(6)
+                    Image(systemName: "stop.fill")
+                        .font(.system(size: 12))
+                        .foregroundColor(.red)
                 }
                 .buttonStyle(.plain)
                 .disabled(!connectionManager.isExecuting)
+                .help("停止查询")
                 
                 Divider()
-                    .frame(height: 20)
+                    .frame(height: 16)
                 
                 // 刷新按钮
                 Button(action: {
                     connectionManager.refreshCurrentView()
                 }) {
                     Image(systemName: "arrow.clockwise")
-                        .font(.system(size: 14))
+                        .font(.system(size: 12))
                 }
                 .buttonStyle(.plain)
                 .help("刷新")
@@ -160,10 +172,10 @@ struct MainView: View {
                     }
                 } label: {
                     Image(systemName: "arrow.triangle.2.circlepath")
-                        .font(.system(size: 14))
+                        .font(.system(size: 12))
                 }
                 .menuStyle(.borderlessButton)
-                .frame(width: 20)
+                .frame(width: 16)
                 .help("导入/导出")
                 
                 // 搜索按钮
@@ -171,14 +183,14 @@ struct MainView: View {
                     connectionManager.showSearch = true
                 }) {
                     Image(systemName: "magnifyingglass")
-                        .font(.system(size: 14))
+                        .font(.system(size: 12))
                 }
                 .buttonStyle(.plain)
                 .help("搜索")
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, 8)
         }
-        .frame(height: 44)
+        .frame(height: 28)
         .background(Color(.windowBackgroundColor))
         .overlay(
             Rectangle()
@@ -194,7 +206,7 @@ struct MainView: View {
             // 侧边栏标题
             HStack {
                 Text("我的连接")
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(.system(size: 11, weight: .medium))
                     .foregroundColor(.secondary)
                 
                 Spacer()
@@ -203,13 +215,13 @@ struct MainView: View {
                     connectionManager.showNewConnectionDialog = true
                 }) {
                     Image(systemName: "plus")
-                        .font(.system(size: 12))
+                        .font(.system(size: 10))
                         .foregroundColor(.secondary)
                 }
                 .buttonStyle(.plain)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
             
             // 连接树
             List(selection: $connectionManager.selectedItem) {
@@ -221,21 +233,21 @@ struct MainView: View {
             .listStyle(.sidebar)
             
             // 底部搜索框
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 Image(systemName: "magnifyingglass")
-                    .font(.system(size: 12))
+                    .font(.system(size: 10))
                     .foregroundColor(.secondary)
                 
                 TextField("搜索连接...", text: $connectionManager.searchText)
                     .textFieldStyle(.plain)
-                    .font(.system(size: 12))
+                    .font(.system(size: 11))
             }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 6)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 4)
             .background(Color(.textBackgroundColor).opacity(0.5))
-            .cornerRadius(6)
-            .padding(.horizontal, 8)
-            .padding(.bottom, 8)
+            .cornerRadius(4)
+            .padding(.horizontal, 6)
+            .padding(.bottom, 6)
         }
         .background(Color(.controlBackgroundColor))
     }
@@ -331,14 +343,14 @@ struct MainView: View {
                 connectionManager.createNewQuery()
             }) {
                 Image(systemName: "plus")
-                    .font(.system(size: 12))
+                    .font(.system(size: 10))
                     .foregroundColor(.secondary)
-                    .frame(width: 28, height: 28)
+                    .frame(width: 24, height: 24)
             }
             .buttonStyle(.plain)
             .help("新建查询")
         }
-        .frame(height: 32)
+        .frame(height: 28)
         .background(Color(.windowBackgroundColor))
         .overlay(
             Rectangle()
@@ -353,21 +365,20 @@ struct MainView: View {
 struct ToolbarButton: View {
     let icon: String
     let title: String
-    let isActive: Bool
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 2) {
+            VStack(spacing: 1) {
                 Image(systemName: icon)
-                    .font(.system(size: 16))
+                    .font(.system(size: 14))
                 Text(title)
-                    .font(.system(size: 10))
+                    .font(.system(size: 9))
             }
-            .frame(width: 50, height: 36)
-            .foregroundColor(isActive ? .accentColor : .secondary)
-            .background(isActive ? Color.accentColor.opacity(0.1) : Color.clear)
-            .cornerRadius(6)
+            .frame(width: 44, height: 24)
+            .foregroundColor(.primary)
+            .background(Color.clear)
+            .cornerRadius(4)
         }
         .buttonStyle(.plain)
     }
@@ -382,26 +393,26 @@ struct TabItem: View {
     let onTap: () -> Void
     
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 4) {
             Image(systemName: icon)
-                .font(.system(size: 11))
+                .font(.system(size: 10))
                 .foregroundColor(isSelected ? .accentColor : .secondary)
             
             Text(title)
-                .font(.system(size: 12))
+                .font(.system(size: 11))
                 .foregroundColor(isSelected ? .primary : .secondary)
                 .lineLimit(1)
             
             Button(action: onClose) {
                 Image(systemName: "xmark")
-                    .font(.system(size: 9))
+                    .font(.system(size: 8))
                     .foregroundColor(.secondary)
             }
             .buttonStyle(.plain)
             .opacity(isSelected ? 1 : 0)
         }
-        .padding(.horizontal, 12)
-        .frame(height: 32)
+        .padding(.horizontal, 8)
+        .frame(height: 28)
         .background(isSelected ? Color(.controlBackgroundColor) : Color.clear)
         .overlay(
             Rectangle()
@@ -424,25 +435,25 @@ struct ConnectionTreeView: View {
                 DatabaseTreeView(database: database)
             }
         } label: {
-            HStack(spacing: 6) {
+            HStack(spacing: 4) {
                 // 连接状态图标
                 Image(systemName: connection.isConnected ? "server.rack" : "server.rack")
-                    .font(.system(size: 14))
+                    .font(.system(size: 12))
                     .foregroundColor(connection.isConnected ? .green : .gray)
                 
                 // 连接颜色标记
                 Circle()
                     .fill(connection.connectionColor)
-                    .frame(width: 6, height: 6)
+                    .frame(width: 4, height: 4)
                 
                 // 连接名称
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: 1) {
                     Text(connection.name)
-                        .font(.system(size: 13))
+                        .font(.system(size: 11))
                         .lineLimit(1)
                     
                     Text("\(connection.username)@\(connection.host)")
-                        .font(.system(size: 10))
+                        .font(.system(size: 9))
                         .foregroundColor(.secondary)
                         .lineLimit(1)
                 }
@@ -461,10 +472,10 @@ struct DatabaseTreeView: View {
             ForEach(database.tables) { table in
                 Label {
                     Text(table.name)
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
                 } icon: {
                     Image(systemName: "tablecells")
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
                         .foregroundColor(.blue)
                 }
             }
@@ -473,10 +484,10 @@ struct DatabaseTreeView: View {
             ForEach(database.views) { view in
                 Label {
                     Text(view.name)
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
                 } icon: {
                     Image(systemName: "eye")
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
                         .foregroundColor(.green)
                 }
             }
@@ -485,20 +496,20 @@ struct DatabaseTreeView: View {
             ForEach(database.procedures) { procedure in
                 Label {
                     Text(procedure.name)
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
                 } icon: {
                     Image(systemName: "function")
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
                         .foregroundColor(.orange)
                 }
             }
         } label: {
             Label {
                 Text(database.name)
-                    .font(.system(size: 13))
+                    .font(.system(size: 11))
             } icon: {
                 Image(systemName: "database")
-                    .font(.system(size: 14))
+                    .font(.system(size: 12))
                     .foregroundColor(.purple)
             }
         }
