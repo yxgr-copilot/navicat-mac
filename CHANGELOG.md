@@ -16,6 +16,27 @@
 ### 修复
 - 无
 
+## [0.2.0] - 2026-05-11
+
+### 新增
+- 添加ToolbarButton工具栏按钮组件
+- 添加TabItem标签页组件
+- 添加ConnectionTreeView连接树视图
+- 添加DatabaseTreeView数据库树视图
+- 添加NavigationItem和ContentItem枚举
+
+### 变更
+- 重构MainView参考Navicat Premium UI设计
+- 采用三段式布局：工具栏、侧边栏、内容区
+- 添加水平功能工具栏（连接、查询、表、视图等）
+- 优化侧边栏设计（标题、连接树、搜索框）
+- 改进标签页栏设计
+- 保持浅色主题配色方案
+
+### 修复
+- 修复Tab枚举Hashable协议问题
+- 修复NavigationItem和ContentItem作用域问题
+
 ## [0.1.2] - 2026-05-11
 
 ### 新增
