@@ -41,9 +41,6 @@ struct MainView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // 自定义标题栏（红绿灯区域）
-            customTitleBar
-            
             // 工具栏
             toolbarView
             
@@ -62,26 +59,7 @@ struct MainView: View {
         }
         .frame(minWidth: 1200, minHeight: 800)
         .background(Color(.controlBackgroundColor))
-    }
-    
-    // MARK: - 自定义标题栏
-    private var customTitleBar: some View {
-        ZStack {
-            // 背景
-            Color(.windowBackgroundColor)
-            
-            // 居中显示应用名称
-            Text("NavicatMac")
-                .font(.system(size: 13, weight: .medium))
-                .foregroundColor(.primary)
-        }
-        .frame(height: 28)
-        .overlay(
-            Rectangle()
-                .frame(height: 1)
-                .foregroundColor(Color(.separatorColor)),
-            alignment: .bottom
-        )
+        .navigationTitle("NavicatMac")
     }
     
     // MARK: - 工具栏
