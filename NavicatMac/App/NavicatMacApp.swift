@@ -6,8 +6,16 @@ struct NavicatMacApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environmentObject(connectionManager)
+                .onAppear {
+                    // 延迟设置窗口标题，确保窗口已创建
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        NSApplication.shared.windows.forEach { window in
+                            window.title = "NavicatMac"
+                        }
+                    }
+                }
         }
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified(showsTitle: false))
@@ -37,22 +45,5 @@ struct NavicatMacApp: App {
                 .keyboardShortcut(.return, modifiers: [.command, .shift])
             }
         }
-    }
-}
-
-// MARK: - 内容视图
-struct ContentView: View {
-    @EnvironmentObject var connectionManager: ConnectionManager
-    
-    var body: some View {
-        MainView()
-            .onAppear {
-                // 设置窗口标题
-                DispatchQueue.main.async {
-                    NSApplication.shared.windows.forEach { window in
-                        window.title = "NavicatMac"
-                    }
-                }
-            }
     }
 }

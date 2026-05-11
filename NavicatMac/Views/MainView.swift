@@ -34,23 +34,25 @@ enum Tab: Hashable, Identifiable {
 }
 
 // MARK: - 窗口标题设置器
-struct WindowTitleModifier: ViewModifier {
+struct WindowTitleView: NSViewRepresentable {
     let title: String
     
-    func body(content: Content) -> some View {
-        content.onAppear {
-            DispatchQueue.main.async {
-                NSApplication.shared.windows.forEach { window in
-                    window.title = title
-                }
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async {
+            if let window = view.window {
+                window.title = title
             }
         }
+        return view
     }
-}
-
-extension View {
-    func windowTitle(_ title: String) -> some View {
-        modifier(WindowTitleModifier(title: title))
+    
+    func updateNSView(_ nsView: NSView, context: Context) {
+        DispatchQueue.main.async {
+            if let window = nsView.window {
+                window.title = title
+            }
+        }
     }
 }
 
@@ -61,26 +63,33 @@ struct MainView: View {
     @State private var sidebarWidth: CGFloat = 220
     
     var body: some View {
-        VStack(spacing: 0) {
-            // 工具栏
-            toolbarView
-            
-            // 主内容区
-            HStack(spacing: 0) {
-                // 左侧边栏
-                sidebarView
-                    .frame(width: sidebarWidth)
+        ZStack {
+            // 主内容
+            VStack(spacing: 0) {
+                // 工具栏
+                toolbarView
                 
-                // 分隔线
-                Divider()
-                
-                // 右侧内容区
-                contentArea
+                // 主内容区
+                HStack(spacing: 0) {
+                    // 左侧边栏
+                    sidebarView
+                        .frame(width: sidebarWidth)
+                    
+                    // 分隔线
+                    Divider()
+                    
+                    // 右侧内容区
+                    contentArea
+                }
             }
+            .frame(minWidth: 1200, minHeight: 800)
+            .background(Color(.controlBackgroundColor))
+            
+            // 隐藏的视图用于设置窗口标题
+            WindowTitleView(title: "NavicatMac")
+                .frame(width: 0, height: 0)
+                .opacity(0)
         }
-        .frame(minWidth: 1200, minHeight: 800)
-        .background(Color(.controlBackgroundColor))
-        .windowTitle("NavicatMac")
     }
     
     // MARK: - 工具栏
