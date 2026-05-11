@@ -418,6 +418,65 @@ git push origin v0.2.0
 - **GitHub**: https://github.com/yxgr-copilot/navicat-mac
 - **Issues**: https://github.com/yxgr-copilot/navicat-mac/issues
 
+## AGENTS.md维护指南
+
+### 保持更新的重要性
+
+AGENTS.md是AI代理理解项目的重要文件，需要随项目发展持续更新。过时的AGENTS.md可能导致：
+- AI生成不符合项目规范的代码
+- 遗漏重要的架构约定
+- 重复已解决的问题
+
+### 何时更新AGENTS.md
+
+以下情况需要更新AGENTS.md：
+1. **新增重要文件** - 新的模型、视图、服务文件
+2. **架构变更** - 新的设计模式或架构调整
+3. **编码规范变更** - 新的命名约定或代码风格
+4. **发现新问题** - 编译陷阱或最佳实践
+5. **功能完成** - 更新待办事项列表
+
+### 更新方法
+
+#### 自动检查
+
+```bash
+# 检查AGENTS.md是否需要更新
+./scripts/maintain-agents.sh --check
+
+# 显示项目统计信息
+./scripts/maintain-agents.sh --stats
+
+# 执行所有检查和更新
+./scripts/maintain-agents.sh --all
+```
+
+#### 手动更新
+
+1. 更新项目结构（如有新文件）
+2. 更新编码规范（如有新约定）
+3. 更新常见问题（如有新陷阱）
+4. 更新待完成功能（如有完成功能）
+5. 更新最后更新日期
+
+### Git钩子
+
+项目配置了post-commit钩子，会在以下情况提醒更新AGENTS.md：
+- AGENTS.md超过7天未更新
+- 新增Swift文件
+- 新增模型或视图文件
+
+### 更新检查清单
+
+更新AGENTS.md时，请检查以下内容：
+
+- [ ] 项目结构是否准确
+- [ ] 核心架构是否完整
+- [ ] 编码规范是否最新
+- [ ] 常见问题是否覆盖
+- [ ] 待办事项是否更新
+- [ ] 最后更新日期是否正确
+
 ---
 
 **最后更新**: 2026-05-11
