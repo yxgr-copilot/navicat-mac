@@ -1,0 +1,440 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F81DCCA99733511F87234873 /* NavicatMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5655A26F8325943ACFAEBFC /* NavicatMacApp.swift */; };
+		CD939A66846C5579A04C0075 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65297C9048950FC8FE6AF64 /* Connection.swift */; };
+		8F90ADA70C7D5636A08B4513 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC43EB3868A545AA77576D0 /* MainView.swift */; };
+		95FCF88593C35AE187970091 /* QueryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ADA17F995859328D786607 /* QueryEditorView.swift */; };
+		217B94B625AD563C8FE5CA74 /* ImportExportWizard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFB30FBC4735D4298620FB8 /* ImportExportWizard.swift */; };
+		43A99CEF789E5F7181BE2D9F /* ConnectionDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A0661F3763503482A8AFBB /* ConnectionDialog.swift */; };
+		1D603191B81C5ECFBAACE556 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211026FCCEF9565BAE5AF12D /* ConnectionManager.swift */; };
+		7C6DCDC616C75EAB81DD9CA7 /* NavicatMacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE55E34D3EED5A3F8B9993CA /* NavicatMacTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C5655A26F8325943ACFAEBFC /* NavicatMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavicatMacApp.swift; sourceTree = "<group>"; };
+		E65297C9048950FC8FE6AF64 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		7EC43EB3868A545AA77576D0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		42ADA17F995859328D786607 /* QueryEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryEditorView.swift; sourceTree = "<group>"; };
+		CDFB30FBC4735D4298620FB8 /* ImportExportWizard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportWizard.swift; sourceTree = "<group>"; };
+		A0A0661F3763503482A8AFBB /* ConnectionDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDialog.swift; sourceTree = "<group>"; };
+		211026FCCEF9565BAE5AF12D /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
+		BE55E34D3EED5A3F8B9993CA /* NavicatMacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavicatMacTests.swift; sourceTree = "<group>"; };
+		F7121FEC22C0535798A38BE8 /* NavicatMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavicatMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84503E496A945CC195CF00D5 /* NavicatMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavicatMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6A580E6F81465280BBD323D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57DFBF552B1B570EBA528003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B32F9FE822835843B0BD33B5 = {
+			isa = PBXGroup;
+			children = (
+				F8E90527AB8259FE8A88265A /* NavicatMac */,
+				D7DED6CFC5465082B1BA3C1B /* NavicatMacTests */,
+				A40B99B801B95962AABA358E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40B99B801B95962AABA358E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F7121FEC22C0535798A38BE8 /* NavicatMac.app */,
+				84503E496A945CC195CF00D5 /* NavicatMacTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8E90527AB8259FE8A88265A /* NavicatMac */ = {
+			isa = PBXGroup;
+			children = (
+				F456AAB976555A9AB6CB9F61 /* App */,
+				708E049507555049B54E3E35 /* Models */,
+				CADB9FA0197151109C30F3AA /* Services */,
+				34ACC95B966156F5B4D36200 /* Views */,
+			);
+			path = NavicatMac;
+			sourceTree = "<group>";
+		};
+		F456AAB976555A9AB6CB9F61 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C5655A26F8325943ACFAEBFC /* NavicatMacApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		708E049507555049B54E3E35 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E65297C9048950FC8FE6AF64 /* Connection.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CADB9FA0197151109C30F3AA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				211026FCCEF9565BAE5AF12D /* ConnectionManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		34ACC95B966156F5B4D36200 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BA6653EB78F05FEC89A6FE99 /* Content */,
+				A8E6E68E68D55CC08AAB61F0 /* Dialogs */,
+				7EC43EB3868A545AA77576D0 /* MainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BA6653EB78F05FEC89A6FE99 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				42ADA17F995859328D786607 /* QueryEditorView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		A8E6E68E68D55CC08AAB61F0 /* Dialogs */ = {
+			isa = PBXGroup;
+			children = (
+				A0A0661F3763503482A8AFBB /* ConnectionDialog.swift */,
+				CDFB30FBC4735D4298620FB8 /* ImportExportWizard.swift */,
+			);
+			path = Dialogs;
+			sourceTree = "<group>";
+		};
+		D7DED6CFC5465082B1BA3C1B /* NavicatMacTests */ = {
+			isa = PBXGroup;
+			children = (
+				BE55E34D3EED5A3F8B9993CA /* NavicatMacTests.swift */,
+			);
+			path = NavicatMacTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		94B87FDD8F8F5BC6AEC1C844 /* NavicatMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 933ABAD659675E7D93E8C13B /* Build configuration list for PBXNativeTarget "NavicatMac" */;
+			buildPhases = (
+				0FECEF4AD14A5543B1BB80FB /* Sources */,
+				6A580E6F81465280BBD323D2 /* Frameworks */,
+				C77FC153BBA9551A8ADBA4DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NavicatMac;
+			productName = NavicatMac;
+			productReference = F7121FEC22C0535798A38BE8 /* NavicatMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DBB3683ABBC3577983446317 /* NavicatMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2916468ABD652C9B45AABB0 /* Build configuration list for PBXNativeTarget "NavicatMacTests" */;
+			buildPhases = (
+				7D68FB906E195C028B88BBAE /* Sources */,
+				57DFBF552B1B570EBA528003 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3DD41CBB03CF5B58B0009F00 /* PBXTargetDependency */,
+			);
+			name = NavicatMacTests;
+			productName = NavicatMacTests;
+			productReference = 84503E496A945CC195CF00D5 /* NavicatMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD2A9EF4720D5A79AA02230F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+			};
+			buildConfigurationList = 3D2964CF6DAA5476A1ECCF1D /* Build configuration list for PBXProject "NavicatMac" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B32F9FE822835843B0BD33B5;
+			productRefGroup = A40B99B801B95962AABA358E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				94B87FDD8F8F5BC6AEC1C844 /* NavicatMac */,
+				DBB3683ABBC3577983446317 /* NavicatMacTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C77FC153BBA9551A8ADBA4DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0FECEF4AD14A5543B1BB80FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F81DCCA99733511F87234873 /* NavicatMacApp.swift in Sources */,
+				CD939A66846C5579A04C0075 /* Connection.swift in Sources */,
+				8F90ADA70C7D5636A08B4513 /* MainView.swift in Sources */,
+				95FCF88593C35AE187970091 /* QueryEditorView.swift in Sources */,
+				217B94B625AD563C8FE5CA74 /* ImportExportWizard.swift in Sources */,
+				43A99CEF789E5F7181BE2D9F /* ConnectionDialog.swift in Sources */,
+				1D603191B81C5ECFBAACE556 /* ConnectionManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D68FB906E195C028B88BBAE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C6DCDC616C75EAB81DD9CA7 /* NavicatMacTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3DD41CBB03CF5B58B0009F00 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94B87FDD8F8F5BC6AEC1C844 /* NavicatMac */;
+			targetProxy = 9907A0B66F1C5580BF8AC975 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXContainerItemProxy section */
+		9907A0B66F1C5580BF8AC975 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD2A9EF4720D5A79AA02230F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94B87FDD8F8F5BC6AEC1C844;
+			remoteInfo = NavicatMac;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin XCBuildConfiguration section */
+		D6AAEA449F925354A100B11E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		800F8251AEA45ECB9299C9D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		A3EEDECB587D5E51B2D89C57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NavicatMac/NavicatMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 24;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+			);
+				MARKETING_VERSION = 0.2.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.navicat.mac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B05061FD6CCF55C594D3241E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NavicatMac/NavicatMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 24;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+			);
+				MARKETING_VERSION = 0.2.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.navicat.mac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		630009EA6B21538BB638A3B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 24;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.2.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.navicat.mac.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavicatMac.app/Contents/MacOS/NavicatMac";
+			};
+			name = Debug;
+		};
+		BE454CD4A43C502FA2CADD4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 24;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.2.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.navicat.mac.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavicatMac.app/Contents/MacOS/NavicatMac";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3D2964CF6DAA5476A1ECCF1D /* Build configuration list for PBXProject "NavicatMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6AAEA449F925354A100B11E /* Debug */,
+				800F8251AEA45ECB9299C9D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		933ABAD659675E7D93E8C13B /* Build configuration list for PBXNativeTarget "NavicatMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A3EEDECB587D5E51B2D89C57 /* Debug */,
+				B05061FD6CCF55C594D3241E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E2916468ABD652C9B45AABB0 /* Build configuration list for PBXNativeTarget "NavicatMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				630009EA6B21538BB638A3B0 /* Debug */,
+				BE454CD4A43C502FA2CADD4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BD2A9EF4720D5A79AA02230F /* Project object */;
+}

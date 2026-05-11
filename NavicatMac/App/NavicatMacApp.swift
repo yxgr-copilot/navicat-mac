@@ -5,7 +5,7 @@ struct NavicatMacApp: App {
     @StateObject private var connectionManager = ConnectionManager()
     
     var body: some Scene {
-        WindowGroup {
+        WindowGroup("NavicatMac") {
             MainView()
                 .environmentObject(connectionManager)
         }

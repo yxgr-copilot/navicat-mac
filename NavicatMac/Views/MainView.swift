@@ -59,7 +59,6 @@ struct MainView: View {
         }
         .frame(minWidth: 1200, minHeight: 800)
         .background(Color(.controlBackgroundColor))
-        .navigationTitle("NavicatMac")
     }
     
     // MARK: - 工具栏
