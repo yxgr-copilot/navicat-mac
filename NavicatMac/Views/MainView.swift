@@ -1,5 +1,34 @@
 import SwiftUI
 
+// MARK: - 窗口标题设置器（使用NSViewRepresentable）
+struct WindowTitleView: NSViewRepresentable {
+    let title: String
+    
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        // 在视图添加到窗口后设置标题
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if let window = view.window {
+                window.title = title
+                // 确保标题颜色正确
+                window.titlebarAppearsTransparent = false
+                window.titleVisibility = .visible
+            }
+        }
+        return view
+    }
+    
+    func updateNSView(_ nsView: NSView, context: Context) {
+        DispatchQueue.main.async {
+            if let window = nsView.window {
+                window.title = title
+                window.titlebarAppearsTransparent = false
+                window.titleVisibility = .visible
+            }
+        }
+    }
+}
+
 // MARK: - 导航项枚举
 enum NavigationItem: Hashable {
     case connection(Connection)
@@ -29,29 +58,6 @@ enum Tab: Hashable, Identifiable {
         case .query(let id): return "query_\(id)"
         case .tableData(let id): return "tableData_\(id)"
         case .tableDesign(let id): return "tableDesign_\(id)"
-        }
-    }
-}
-
-// MARK: - 窗口标题设置器
-struct WindowTitleView: NSViewRepresentable {
-    let title: String
-    
-    func makeNSView(context: Context) -> NSView {
-        let view = NSView()
-        DispatchQueue.main.async {
-            if let window = view.window {
-                window.title = title
-            }
-        }
-        return view
-    }
-    
-    func updateNSView(_ nsView: NSView, context: Context) {
-        DispatchQueue.main.async {
-            if let window = nsView.window {
-                window.title = title
-            }
         }
     }
 }
@@ -88,7 +94,7 @@ struct MainView: View {
             // 隐藏的视图用于设置窗口标题
             WindowTitleView(title: "NavicatMac")
                 .frame(width: 0, height: 0)
-                .opacity(0)
+                .allowsHitTesting(false)
         }
     }
     
@@ -288,36 +294,29 @@ struct MainView: View {
             // 标签页栏
             tabBar
             
-            // 内容视图
-            TabView(selection: $selectedTab) {
+            // 内容视图 - 使用条件渲染代替TabView
+            ZStack {
                 // 查询标签页
                 ForEach(connectionManager.queryTabs) { tab in
-                    QueryEditorView(tab: tab)
-                        .tabItem {
-                            Label(tab.title, systemImage: "doc.text")
-                        }
-                        .tag(Tab.query(tab.id))
+                    if selectedTab == .query(tab.id) {
+                        QueryEditorView(tab: tab)
+                    }
                 }
                 
                 // 表数据标签页
                 if let table = connectionManager.selectedTable {
-                    TableDataView(table: table)
-                        .tabItem {
-                            Label(table.name, systemImage: "tablecells")
-                        }
-                        .tag(Tab.tableData(table.id))
+                    if selectedTab == .tableData(table.id) {
+                        TableDataView(table: table)
+                    }
                 }
                 
                 // 表设计标签页
                 if let table = connectionManager.selectedTableForDesign {
-                    TableDesignerView(table: table)
-                        .tabItem {
-                            Label("设计: \(table.name)", systemImage: "pencil")
-                        }
-                        .tag(Tab.tableDesign(table.id))
+                    if selectedTab == .tableDesign(table.id) {
+                        TableDesignerView(table: table)
+                    }
                 }
             }
-            .tabViewStyle(.automatic)
         }
     }
     
