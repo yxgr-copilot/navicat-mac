@@ -16,6 +16,14 @@
 ### 修复
 - 无
 
+## [0.2.7] - 2026-05-12
+
+### 修复
+- 标题栏现在显示NavicatMac
+- 版本号更新为0.2.6 (26)
+- 使用DispatchQueue.main.asyncAfter设置窗口标题
+- 移除WindowTitleView，直接在App中设置标题
+
 ## [0.2.6] - 2026-05-12
 
 ### 修复
