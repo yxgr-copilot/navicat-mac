@@ -63,3 +63,6 @@ Carthage/
 # GitHub Token
 .github_token
 token.txt
+
+# Screenshots
+screenshots/

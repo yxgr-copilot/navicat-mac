@@ -1,17 +1,23 @@
 import SwiftUI
 
-// MARK: - 窗口标题设置器（使用NSViewRepresentable）
-struct WindowTitleView: NSViewRepresentable {
-    let title: String
+// MARK: - 窗口配置器
+struct WindowConfigurator: NSViewRepresentable {
+    let toolbarBackgroundColor: Color
     
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
-        // 在视图添加到窗口后设置标题
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if let window = view.window {
-                window.title = title
-                // 确保标题颜色正确
-                window.titlebarAppearsTransparent = false
+                // 设置窗口标题
+                window.title = "NavicatMac"
+                
+                // 让标题栏透明，这样标题栏会使用我们设置的背景色
+                window.titlebarAppearsTransparent = true
+                
+                // 设置窗口背景色
+                window.backgroundColor = NSColor(toolbarBackgroundColor)
+                
+                // 移除标题栏和内容区之间的分割线
                 window.titleVisibility = .visible
             }
         }
@@ -21,8 +27,9 @@ struct WindowTitleView: NSViewRepresentable {
     func updateNSView(_ nsView: NSView, context: Context) {
         DispatchQueue.main.async {
             if let window = nsView.window {
-                window.title = title
-                window.titlebarAppearsTransparent = false
+                window.title = "NavicatMac"
+                window.titlebarAppearsTransparent = true
+                window.backgroundColor = NSColor(toolbarBackgroundColor)
                 window.titleVisibility = .visible
             }
         }
@@ -65,8 +72,20 @@ enum Tab: Hashable, Identifiable {
 // MARK: - 主视图
 struct MainView: View {
     @EnvironmentObject var connectionManager: ConnectionManager
+    @Environment(\.colorScheme) var colorScheme
     @State private var selectedTab: Tab = .query(UUID())
     @State private var sidebarWidth: CGFloat = 220
+    
+    // 根据深色/浅色模式返回对应的背景色
+    private var toolbarBackgroundColor: Color {
+        if colorScheme == .dark {
+            // 深色模式：RGB(42, 42, 43)
+            return Color(red: 42/255, green: 42/255, blue: 43/255)
+        } else {
+            // 浅色模式：RGB(231, 231, 232)
+            return Color(red: 231/255, green: 231/255, blue: 232/255)
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -91,8 +110,8 @@ struct MainView: View {
             .frame(minWidth: 1200, minHeight: 800)
             .background(Color(.controlBackgroundColor))
             
-            // 隐藏的视图用于设置窗口标题
-            WindowTitleView(title: "NavicatMac")
+            // 隐藏的视图用于配置窗口
+            WindowConfigurator(toolbarBackgroundColor: toolbarBackgroundColor)
                 .frame(width: 0, height: 0)
                 .allowsHitTesting(false)
         }
@@ -227,13 +246,7 @@ struct MainView: View {
             .padding(.horizontal, 10)
         }
         .frame(height: 44)
-        .background(Color(.windowBackgroundColor))
-        .overlay(
-            Rectangle()
-                .frame(height: 1)
-                .foregroundColor(Color(.separatorColor)),
-            alignment: .bottom
-        )
+        .background(toolbarBackgroundColor)
     }
     
     // MARK: - 侧边栏

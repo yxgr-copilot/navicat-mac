@@ -14,7 +14,6 @@ struct NavicatMacApp: App {
                 }
         }
         .windowStyle(.titleBar)
-        .windowToolbarStyle(.unified(showsTitle: true))
         .commands {
             // 替换关于菜单
             CommandGroup(replacing: .appInfo) {
