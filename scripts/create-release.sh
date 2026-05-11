@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NavicatMac Release脚本
-# 用于创建GitHub Release
+# 用于创建GitHub Release并上传dmg文件
 
 set -e
 
@@ -62,7 +62,7 @@ generate_changelog() {
     echo "$changelog"
 }
 
-# 创建Release
+# 创建Release并上传dmg文件
 create_release() {
     local version=$1
     local changelog=$2
@@ -70,7 +70,7 @@ create_release() {
     print_info "创建Release: $version"
     
     # 创建Release草稿
-    local release_body="## 版本 $version\n\n### 变更日志\n\n$changelog\n\n### 安装说明\n\n1. 下载 \`NavicatMac-${version#v}.dmg\`\n2. 打开dmg文件\n3. 将NavicatMac.app拖入Applications文件夹\n4. 首次运行可能需要在系统偏好设置中允许运行\n\n### 系统要求\n\n- macOS 14.0 或更高版本\n- Intel 或 Apple Silicon 处理器"
+    local release_body="## 版本 $version\n\n### 变更日志\n\n$changelog\n\n### 下载说明\n\n请根据您的Mac芯片类型选择对应的dmg文件：\n\n- **Apple Silicon (M1/M2/M3)**: 下载 \`NavicatMac-${version#v}-arm64.dmg\`\n- **Intel**: 下载 \`NavicatMac-${version#v}-x86_64.dmg\`\n\n### 安装说明\n\n1. 下载对应的dmg文件\n2. 打开dmg文件\n3. 将NavicatMac.app拖入Applications文件夹\n4. 首次运行可能需要在系统偏好设置中允许运行\n\n### 系统要求\n\n- macOS 14.0 或更高版本\n- Intel 或 Apple Silicon 处理器"
     
     # 使用GitHub API创建Release
     if [ -n "$GITHUB_TOKEN" ]; then
@@ -91,20 +91,38 @@ create_release() {
         if echo "$api_response" | grep -q '"id"'; then
             print_success "Release创建成功"
             
-            # 上传dmg文件
-            local dmg_file="build/dmg/NavicatMac-$(date +%Y%m%d).dmg"
-            if [ -f "$dmg_file" ]; then
-                print_info "上传dmg文件..."
-                local upload_url=$(echo "$api_response" | grep -o '"upload_url":"[^"]*"' | cut -d'"' -f4 | sed 's/{.*//')
-                
+            # 获取Release ID和upload_url
+            local release_id=$(echo "$api_response" | grep -o '"id":[0-9]*' | head -1 | cut -d':' -f2)
+            local upload_url=$(echo "$api_response" | grep -o '"upload_url":"[^"]*"' | cut -d'"' -f4 | sed 's/{.*//')
+            
+            # 上传arm64 dmg文件
+            local arm64_dmg="build/dmg/NavicatMac-${version#v}-arm64.dmg"
+            if [ -f "$arm64_dmg" ]; then
+                print_info "上传arm64 dmg文件..."
                 curl -s -X POST \
                     -H "Authorization: token $GITHUB_TOKEN" \
                     -H "Content-Type: application/octet-stream" \
-                    "$upload_url?name=$(basename $dmg_file)" \
-                    --data-binary @"$dmg_file"
-                
-                print_success "dmg文件上传成功"
+                    "$upload_url?name=$(basename $arm64_dmg)" \
+                    --data-binary @"$arm64_dmg"
+                print_success "arm64 dmg文件上传成功"
+            else
+                print_warning "arm64 dmg文件不存在: $arm64_dmg"
             fi
+            
+            # 上传x86_64 dmg文件
+            local x86_64_dmg="build/dmg/NavicatMac-${version#v}-x86_64.dmg"
+            if [ -f "$x86_64_dmg" ]; then
+                print_info "上传x86_64 dmg文件..."
+                curl -s -X POST \
+                    -H "Authorization: token $GITHUB_TOKEN" \
+                    -H "Content-Type: application/octet-stream" \
+                    "$upload_url?name=$(basename $x86_64_dmg)" \
+                    --data-binary @"$x86_64_dmg"
+                print_success "x86_64 dmg文件上传成功"
+            else
+                print_warning "x86_64 dmg文件不存在: $x86_64_dmg"
+            fi
+            
         else
             print_error "Release创建失败"
             echo "$api_response"
@@ -125,9 +143,16 @@ create_release() {
         echo ""
         echo "$changelog"
         echo ""
+        echo "### 下载说明"
+        echo ""
+        echo "请根据您的Mac芯片类型选择对应的dmg文件："
+        echo ""
+        echo "- **Apple Silicon (M1/M2/M3)**: 下载 NavicatMac-${version#v}-arm64.dmg"
+        echo "- **Intel**: 下载 NavicatMac-${version#v}-x86_64.dmg"
+        echo ""
         echo "### 安装说明"
         echo ""
-        echo "1. 下载 NavicatMac-${version#v}.dmg"
+        echo "1. 下载对应的dmg文件"
         echo "2. 打开dmg文件"
         echo "3. 将NavicatMac.app拖入Applications文件夹"
         echo "4. 首次运行可能需要在系统偏好设置中允许运行"
@@ -137,7 +162,9 @@ create_release() {
         echo "- macOS 14.0 或更高版本"
         echo "- Intel 或 Apple Silicon 处理器"
         echo ""
-        echo "5. 上传 build/dmg/NavicatMac-$(date +%Y%m%d).dmg 文件"
+        echo "5. 上传以下dmg文件:"
+        echo "   - build/dmg/NavicatMac-${version#v}-arm64.dmg"
+        echo "   - build/dmg/NavicatMac-${version#v}-x86_64.dmg"
         echo "6. 点击 'Publish release'"
     fi
 }

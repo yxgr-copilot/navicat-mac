@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NavicatMac版本发布脚本
-# 用于自动化版本发布流程
+# 用于自动化版本发布流程，支持arm64和x86_64架构
 
 set -e
 
@@ -56,7 +56,13 @@ check_git_status() {
     fi
 }
 
-# 检查版本号格式
+# 获取版本号
+get_version() {
+    local version=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+    echo "$version"
+}
+
+# 验证版本号格式
 validate_version() {
     local version=$1
     if [[ ! $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
@@ -181,15 +187,34 @@ update_changelog() {
     print_success "CHANGELOG.md更新完成"
 }
 
-# 构建项目
+# 构建项目（支持arm64和x86_64）
 build_project() {
+    local version=$1
+    
     print_info "构建项目"
     
-    # 构建Release版本
-    make release
+    # 清理之前的构建
+    make clean 2>/dev/null || true
     
-    # 打包dmg
-    make package
+    # 构建arm64版本
+    print_info "构建arm64版本..."
+    xcodebuild -project NavicatMac.xcodeproj -scheme NavicatMac -configuration Release -arch arm64 build
+    
+    # 创建arm64 dmg
+    local app_path=$(xcodebuild -project NavicatMac.xcodeproj -scheme NavicatMac -configuration Release -showBuildSettings 2>/dev/null | grep "BUILT_PRODUCTS_DIR" | awk '{print $3}' | head -1)/NavicatMac.app
+    hdiutil create -volname "NavicatMac" -srcfolder "$app_path" -ov -format UDZO "build/dmg/NavicatMac-${version}-arm64.dmg"
+    
+    # 清理并构建x86_64版本
+    print_info "构建x86_64版本..."
+    xcodebuild -project NavicatMac.xcodeproj -scheme NavicatMac -configuration Release clean
+    xcodebuild -project NavicatMac.xcodeproj -scheme NavicatMac -configuration Release -arch x86_64 build
+    
+    # 创建x86_64 dmg
+    app_path=$(xcodebuild -project NavicatMac.xcodeproj -scheme NavicatMac -configuration Release -showBuildSettings 2>/dev/null | grep "BUILT_PRODUCTS_DIR" | awk '{print $3}' | head -1)/NavicatMac.app
+    hdiutil create -volname "NavicatMac" -srcfolder "$app_path" -ov -format UDZO "build/dmg/NavicatMac-${version}-x86_64.dmg"
+    
+    # 清理构建文件
+    xcodebuild -project NavicatMac.xcodeproj -scheme NavicatMac -configuration Release clean
     
     print_success "项目构建完成"
 }
@@ -220,7 +245,7 @@ push_to_remote() {
     print_success "推送到远程仓库完成"
 }
 
-# 创建GitHub Release
+# 创建GitHub Release并上传dmg文件
 create_github_release() {
     local version=$1
     local message=$2
@@ -313,10 +338,10 @@ main() {
         print_info "将执行以下操作:"
         echo "  1. 更新版本号为 $version"
         echo "  2. 更新CHANGELOG.md"
-        echo "  3. 构建项目"
+        echo "  3. 构建项目 (arm64 + x86_64)"
         echo "  4. 创建Git标签"
         echo "  5. 推送到远程仓库"
-        echo "  6. 创建GitHub Release"
+        echo "  6. 创建GitHub Release并上传dmg文件"
         
         exit 0
     fi
@@ -324,12 +349,15 @@ main() {
     # 执行发布流程
     update_version "$version"
     update_changelog "$version" "$message"
-    build_project
+    build_project "$version"
     create_tag "$version" "$message"
     push_to_remote "$version"
     create_github_release "$version" "$message"
     
     print_success "版本 $version 发布完成！"
+    print_info "dmg文件已生成:"
+    echo "  - build/dmg/NavicatMac-${version}-arm64.dmg (Apple Silicon)"
+    echo "  - build/dmg/NavicatMac-${version}-x86_64.dmg (Intel)"
 }
 
 # 运行主函数
