@@ -1,0 +1,55 @@
+// swift-tools-version:5.9
+import PackageDescription
+
+let package = Package(
+    name: "NavicatMac",
+    platforms: [
+        .macOS(.v13)
+    ],
+    products: [
+        .executable(name: "NavicatMac", targets: ["NavicatMac"])
+    ],
+    dependencies: [
+        // MySQL客户端库
+        .package(url: "https://github.com/vapor/mysql-nio.git", from: "1.0.0"),
+        .package(url: "https://github.com/vapor/sql-kit.git", from: "3.0.0"),
+        
+        // 网络库
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.0.0"),
+        
+        // JSON处理
+        .package(url: "https://github.com/apple/swift-json.git", from: "0.1.0"),
+        
+        // 文件处理
+        .package(url: "https://github.com/apple/swift-system.git", from: "1.0.0"),
+        
+        // 日志
+        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
+        
+        // 命令行参数
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.0.0")
+    ],
+    targets: [
+        .executableTarget(
+            name: "NavicatMac",
+            dependencies: [
+                .product(name: "MySQLNIO", package: "mysql-nio"),
+                .product(name: "SQLKit", package: "sql-kit"),
+                .product(name: "NIO", package: "swift-nio"),
+                .product(name: "NIOCore", package: "swift-nio"),
+                .product(name: "NIOPosix", package: "swift-nio"),
+                .product(name: "NIOHTTP1", package: "swift-nio"),
+                .product(name: "SwiftJSON", package: "swift-json"),
+                .product(name: "SystemPackage", package: "swift-system"),
+                .product(name: "Logging", package: "swift-log"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
+            ],
+            path: "NavicatMac"
+        ),
+        .testTarget(
+            name: "NavicatMacTests",
+            dependencies: ["NavicatMac"],
+            path: "NavicatMacTests"
+        )
+    ]
+)
