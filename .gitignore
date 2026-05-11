@@ -48,3 +48,18 @@ build/
 # Dependency
 Pods/
 Carthage/
+
+# Security - 避免意外提交敏感信息
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+*.p12
+*.mobileprovision
+*.provisionprofile
+
+# GitHub Token
+.github_token
+token.txt
